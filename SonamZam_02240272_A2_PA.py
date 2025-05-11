@@ -1,6 +1,7 @@
-import random 
+import random
 import math
-import SonamZam_02240272_A2_PB as PC
+import SonamZam_02240272_A2_PB as PC  
+
 # Number Guessing Adventure
 class NumberGuessGame:
     def __init__(self):
@@ -128,11 +129,13 @@ class TriviaGame:
         print(f"\nTrivia completed! Your current score: {self.score}")
 
 # Pokemon Binder Manager
-PokemonBinderManager = PC.PokemonCardBinder
 
 class PokemonBinderManager:
     def __init__(self):
         self.card_storage = {}
+
+    def start(self):
+        self.run_binder_manager()
 
     def run_binder_manager(self):
         while True:
@@ -209,7 +212,7 @@ class GameMenu:
             "1": ("Number Guessing Adventure", NumberGuessGame),
             "2": ("Rock Paper Scissors Arena", RockPaperScissorsGame),
             "3": ("Trivia Quest", TriviaGame),
-            "4": ("Pokemon Binder Manager", PokemonBinderManager)
+            "4": ("Pokemon Card Binder Manager", PokemonBinderManager)
         }
 
     def start(self):
@@ -217,22 +220,25 @@ class GameMenu:
             print("\n======= Game Menu =======")
             for key, (name, _) in self.games.items():
                 print(f"{key}. {name}")
-            print("5. Exit")
+            print("5. Check Current Overall Score")
+            print("0. Exit program")
 
-            choice = input("Select a game by number (1-5): ").strip()
-            if choice == "5":
+            choice = input("Select a function (0-5): ").strip()
+            if choice == "0":
                 print("Goodbye! Thanks for playing.")
                 break
+            elif choice == "5":
+                self.check_overall_score()
             elif choice in self.games:
                 game_name, game_class = self.games[choice]
                 print(f"\nStarting {game_name}...")
                 game_instance = game_class()
-                if choice == "4":
-                    game_instance.run_binder_manager()
-                else:
-                    game_instance.start()
+                game_instance.start()
             else:
                 print("Invalid choice. Please try again.")
+
+    def check_overall_score(self):
+        print("Overall Score: 100")  
 
 if __name__ == "__main__":
     menu = GameMenu()
